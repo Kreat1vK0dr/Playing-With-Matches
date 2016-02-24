@@ -5,7 +5,6 @@ var randomInc = function (min,max) {
 var numpush = [];
 var numlist = [];
 var blocks = [];
-
 //how many divs/classes?
 var createDivList = function(maxblocks) {
   for (i = 0; i<maxblocks;i++) {
@@ -18,32 +17,43 @@ var createDivList = function(maxblocks) {
   }
 };
 
-var createNumList = function(maxrange) {
-  for (i = 1; i<maxrange+1;i++) {
+var iDiv = document.createElement('div');
+iDiv.id = 'block';
+iDiv.className = 'block';
+
+// Create the inner div before appending to the body
+var innerDiv = document.createElement('div');
+innerDiv.className = 'block-2';
+
+// The variable iDiv is still good... Just append to it.
+iDiv.appendChild(innerDiv);
+
+// Then append the whole thing onto the body
+document.getElementsByTagName('body')[0].appendChild(iDiv);
+//how many numbers?
+var createNumList = function(max) {
+  for (i = 1; i<max+1;i++) {
     numlist.push(i);
   }
-  // for (var i in blocks) {
-  //   var number = randomInc(1,maxrange);
-  //   var element = document.querySelector(blocks[i]);
-  //   document.querySelector(blocks[i]).innerHTML = number;
-  //   numpush.push(number);
-  // }
 };
 
-function createBlocks(maxrange, divcount) {
-  createNumList(maxrange);
+function createBlocks(range, divcount) {
+  createNumList(range);
   createDivList(divcount);
-  allocate(divcount);
 }
+
+createBlocks(10,6);
+
+
 
 // console.log('Divs : ['+blocks+']');
 
 // var blocks = ['.n1', '.n2', '.n3'];
 
 //randomly allocate numbers
-function allocate(max) {
+function allocate() {
   for (var i in blocks) {
-    var number = randomInc(1,max);
+    var number = randomInc(1,9);
     var element = document.querySelector(blocks[i]);
     document.querySelector(blocks[i]).innerHTML = number;
     numpush.push(number);
@@ -111,11 +121,11 @@ function hlSame() {
    }
 
 
-// createBlocks(10,6); PAGE WORKED WORKED WHEN THIS FUNCTION WAS EITHER OUTSIDE OR WITHIN THE FUNCTION BELOW.
+
+
 
 window.addEventListener("DOMContentLoaded", function(){
-  // allocate();
-createBlocks(10,48);
+  allocate();
     hlSame();
     console.log(binarycheck);
 });
@@ -126,3 +136,18 @@ createBlocks(10,48);
 // if (num1===num2 || num2===num3 || num1===num3) {
 //
 // }
+
+var iDiv = document.createElement('div');
+iDiv.id = 'block';
+iDiv.className = 'block';
+
+// Create the inner div before appending to the body
+var innerDiv = document.createElement('div');
+innerDiv.className = 'block-2';
+
+// The variable iDiv is still good... Just append to it.
+iDiv.appendChild(innerDiv);
+
+// Then append the whole thing onto the body
+document.getElementsByTagName('body')[0].appendChild(iDiv);
+//how many numbers?

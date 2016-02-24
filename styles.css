@@ -1,5 +1,43 @@
-#n {
+.blocks {
+  position: relative;
+    top: 10em;
+    /*left: 10%;*/
+    /*border-radius: 5em;*/
+  left: 2em;
+  /*width: ;
+  height: 10%;*/
+}
+.n {
+  width: 3em;
+  height: 3em;
   color: white;
-  font-family: Arial;
-  background-color: blue;
+  font-family: bodoni;
+  background-color: #d9152c;
+  margin: 0.05em;
+  float: left;
+  text-align: center;
+  line-height: 3em;
+  border-radius: 3em;
+  font-size: 2em;
+
+  /*top: 5em;*/
+  /*display: inline-block;*/
+  /*position: absolute;*/
+}
+
+.hl {
+  background-color: #f55d6f;
+  color: black;
+}
+
+.message {
+  position: absolute;
+  text-align: center;
+  /*background-color: grey;*/
+  color: black;
+  top: 5%;
+  margin: 0 auto;
+  width: 60%;
+  font-size: 1.5em;
+  left: 20%;
 }
