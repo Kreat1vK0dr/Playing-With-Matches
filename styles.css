@@ -1,28 +1,29 @@
 .blocks {
-  position: relative;
-    top: 10em;
-    /*left: 10%;*/
-    /*border-radius: 5em;*/
-  left: 2em;
-  /*width: ;
-  height: 10%;*/
+    position: relative;
+    top: 5em;
+
 }
+
+#bigdiv {
+  width: 95%;
+  height: 100%;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .n {
   width: 3em;
   height: 3em;
   color: white;
   font-family: bodoni;
   background-color: #d9152c;
-  margin: 0.05em;
-  float: left;
+  text-align: center;
+  display: inline-block;
   text-align: center;
   line-height: 3em;
   border-radius: 3em;
   font-size: 2em;
-
-  /*top: 5em;*/
-  /*display: inline-block;*/
-  /*position: absolute;*/
 }
 
 .hl {
@@ -31,13 +32,35 @@
 }
 
 .message {
-  position: absolute;
+  position: relative;
   text-align: center;
-  /*background-color: grey;*/
   color: black;
-  top: 5%;
   margin: 0 auto;
   width: 60%;
   font-size: 1.5em;
-  left: 20%;
+  top: -6em;
+}
+
+.messageTable {
+  position: relative;
+  text-align: center;
+  color: black;
+  margin: 0 auto;
+  width: 60%;
+  font-size: 1.5em;
+  bottom: -65%;
+}
+
+table {
+  position: relative;
+  width: 20em;
+  height: 20em;
+  margin: 0 auto;
+}
+
+.r {
+  background-color: grey;
+  color: black;
+  text-align: center;
+  font-size: 3em;
 }
