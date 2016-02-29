@@ -622,7 +622,7 @@ window.addEventListener("DOMContentLoaded", function() {
   createRowMap();
   createCellMap();
   createColMap(0);
-  hlRemove('#E84644');
+  hlRemove('#EE616F');
 });
 
 
@@ -692,28 +692,28 @@ document.getElementById('b3').addEventListener("click", function() {
 });
 
 document.getElementById('rowmatch').addEventListener('click', function() {
-  hlRemove('#E84644');
+  hlRemove('#EE616F');
   hlRowMatches();
 });
 document.getElementById('colmatch').addEventListener('click', function() {
-  hlRemove('#E84644');
+  hlRemove('#EE616F');
   hlColMatches();
 });
 document.getElementById('diagonalDown').addEventListener('click', function() {
-  hlRemove('#E84644');
+  hlRemove('#EE616F');
   hlDiagonalDownMatches();
 });
 document.getElementById('diagonalUp').addEventListener('click', function() {
-  hlRemove('#E84644');
+  hlRemove('#EE616F');
   hlDiagonalUpMatches();
 });
 document.getElementById('anymatch').addEventListener('click', function() {
-  hlRemove('#E84644');
+  hlRemove('#EE616F');
   hlCellMatches();
 });
 document.getElementById('hlRemove').addEventListener('click', function() {
 
   displayMessage();
 
-  hlRemove('#E84644');
+  hlRemove('#EE616F');
 });
