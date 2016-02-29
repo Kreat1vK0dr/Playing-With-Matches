@@ -4,41 +4,62 @@
 
   <title>Playing with Matches</title>
 
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="styles.css" />
 
 </head>
 
-<body>
+<body class="clearfix">
+  <div id="buttons">
+    <div id="inputButtons">
+      <div >
+        <input id="cols" type="number" placeholder="Enter number of columns" required>
+        <p class="inputs">Enter Columns</p></input>
+      </div>
+      <div >
+        <input id="rows" type="number" placeholder="Enter number of rows" required>
+        <br>Enter Rows</input>
+      </div>
+      <button id="b2">Submit</button>
 
-<div id="inputButtons">
-    <div class="inputs">
-          <input id="cols" type="number" placeholder="Enter the number of columns you want" required><br>Enter Columns</input>
+      <div >
+        <input id="range" type="number" placeholder="Enter Max of range" required>
+        <br>Enter Max of Range
+        <br>(e.g. if you want 1-9, type 9)</input>
+      </div>
+      <button id="b3">Submit</button>
+
+      <button id="b1">Refresh</button>
     </div>
-    <div class="inputs">
-          <input id="rows" type="number"  placeholder="Enter the number of rows you want" required><br>Enter Rows</input>
+
+    <div id="hlButtons">
+      <button class="matches" id="anymatch">Any Matches</button>
+      <button class="matches" id="rowmatch">Row Matches</button>
+      <button class="matches" id="colmatch">Column Matches</button>
+      <button class="matches" id="diagonalUp">Diagonal Up Matches</button>
+      <button class="matches" id="diagonalDown">Diagonal Down Matches</button>
+      <button class="matches" id="hlRemove">Remove Highlights</button>
     </div>
-        <button id = "b2">Submit</button>
-    <div class="inputs">
-        <input id="range" type="number"  placeholder="Enter the range you want" required><br>Enter Range</input>
+  </div>
+
+  <div id="bigdiv">
+    <div class="messageTable">
+      <!-- <div class = "m" id = "m1"><p></p><br></div>
+    <div class = "m" id = "m2"><p></p><br></div>
+    <div class = "m" id = "m3"><p></p></div> -->
     </div>
-        <button id = "b3">Submit</button>
+    <div id="t">
+      <table>
 
-<button id="b1">Refresh</button>
-</div>
+      </table>
+    </div>
 
-<div id = "t">
-<table>
+  </div>
 
-</table>
-</div>
 
-<div id="m">
-<div class = "message">message</div>
-</div>
 
 </body>
 
-  <script src="withtable.js" charset="utf-8"></script>
+<script src="withtable.js" charset="utf-8"></script>
 
 
 </html>
