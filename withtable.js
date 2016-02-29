@@ -428,7 +428,7 @@ function createDiagonalMapUp() {
               if (m[allRowN[rowdec - j][i + j + 1]] === m[allRowN[rowdec - k][i + k + 1]]) {
                 x++;
                 m[allRowN[rowdec - k][k + i + 1]] = x;
-                loc.push([rows[rowdec - k], cols[i + j]]);
+                loc.push([rows[rowdec - j], cols[i + j + 1]]);
               }
             }
           }
@@ -606,9 +606,9 @@ function displayMessage() {
   document.getElementById('m3').innerHTML = "You can even select your own range!";
 }
 
-var rowsInput = 3;
-var colsInput = 3;
-var rangeInput = 3;
+var rowsInput = 5;
+var colsInput = 5;
+var rangeInput = 10;
 
 window.addEventListener("DOMContentLoaded", function() {
   displayMessage();
