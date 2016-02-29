@@ -61,6 +61,7 @@ var createRows = function(x) {
     var table = document.getElementsByTagName('table')[0];
     addRow.classList.add('r');
     addRow.classList.add('row' + i);
+    // addRow.classList.add('clearfix');
     table.appendChild(addRow);
     rows.push('.row' + i);
   }
@@ -73,6 +74,7 @@ var createColumns = function(y) {
       var addCol = document.createElement('td');
       var row = document.querySelector(rows[i]);
       addCol.classList.add('col' + j);
+      addCol.classList.add('clearfix');
       row.appendChild(addCol);
       if (i === 0) {
         cols.push('.col' + j);
@@ -147,97 +149,33 @@ function hlCellSame() {
 
 }
 
-function hlRowSame() {
-  rowBinarycheck = [];
+
+// hlRowSame();
+
+function createRowMap() {
+  rowMap = [];
   for (var i = 0; i < allRowN.length; i++) {
     var m = {};
-    binarycheck = [];
-
     for (var w = 0; w < allRowN[i].length; w++) {
       var x = 1;
       if (m[allRowN[i][w]] === undefined) {
         m[allRowN[i][w]] = 1;
         for (var y = w + 1; y < allRowN[i].length; y++) {
-
-          console.log(m);
           if (m[allRowN[i][y]] === m[allRowN[i][w]]) {
             x += 1;
             m[allRowN[i][w]] = x;
-            console.log(m);
           }
         }
       }
-      console.log(m);
     }
     rowMap.push(m);
-    console.log(rowMap);
-    for (var j = 0; j < numlist.length; j++) {
-
-      check = [];
-      idx = allRowN[i].indexOf(numlist[j]);
-      if (idx === -1) {
-        binarycheck.push(0);
-      } else {
-        // check.push(numlist[i]);
-        while (idx !== -1) {
-          check.push(idx);
-          console.log(check);
-          idx = allRowN[i].indexOf(numlist[j], idx + 1);
-        }
-        if (check.length > 1) {
-          var color = randomColour();
-          binarycheck.push(check.length);
-          console.log(binarycheck);
-          for (l = 0; l < check.length; l++) {
-            var element = document.querySelector(rows[i]).querySelector(cols[check[l]]);
-            element.classList.add('hl');
-            element.style.backgroundColor = color;
-            element.style.color = 'white';
-
-            //  console.log(blocks[check[j]]);
-            //                console.log(element);
-          }
-        } else {
-          binarycheck.push(0);
-          console.log(binarycheck);
-        }
-      }
-    }
-    rowBinarycheck.push(binarycheck);
-    console.log(rowBinarycheck);
   }
-  var text = "";
-  var repeats = 0;
-  for (var m = 0; m < rowBinarycheck.length; m++) {
-    for (var n = 0; n < rowBinarycheck[m].length; n++) {
-      if (rowBinarycheck[m][n] != 0) {
-        repeats += 1;
-      }
-      if (rowBinarycheck[m][n] === 1) {
-        text += "Number " + numlist[n] + " is repeated once in Row " + (m + 1) + ". ";
-      } else if (rowBinarycheck[m][n] === 2) {
-        text += "Number " + numlist[n] + " is repeated twice in Row " + (m + 1) + ". ";
-      } else if (rowBinarycheck[m][n] > 2) {
-        text += "Number " + numlist[n] + " is repeated " + rowBinarycheck[m][n] + " times in Row " + (m + 1) + ". ";
-      }
-      if (repeats === 1) {
-        document.querySelector('.messageTable').innerHTML = repeats + " number has been repeated. " + text;
-
-      } else if (repeats > 1) {
-        document.querySelector('.messageTable').innerHTML = repeats + " numbers have been repeated. " + text;
-      } else {
-        document.querySelector('.messageTable').innerHTML = "No numbers have been repeated.";
-      }
-    }
-  }
-  text = "";
-  repeats = 0;
 }
-// hlRowSame();
 
 var colMap = [];
 
 function createColMap(x) {
+  colMap = [];
   for (var i = 0; i < allRowN[x].length; i++) {
     var m = {};
     for (var j = 0; j < allRowN.length; j++) {
@@ -261,10 +199,42 @@ function createColMap(x) {
   }
 }
 //
-var locMap = [];
+
+function hlColMatches() {
+  var text = "";
+  var colrepeats = [];
+  var repeats = [];
+  for (var i = 0; i < colMap.length; i++) {
+    for (var j in colMap[i]) {
+      if (colMap[i][j] > 1) {
+        if (colrepeats.indexOf(i)===-1) {
+        colrepeats.push(i);
+      }
+        var colour = randomColour();
+        for (var k = 0; k < allRowN.length; k++) {
+          var element = document.querySelector(rows[k]);
+          var cell = element.querySelector(cols[i]);
+          if (cell.innerHTML === j) {
+            cell.style.backgroundColor = colour;
+            cell.style.color = 'white';
+          }
+        }
 
 
-function createDiagonalMap() {
+        text = text+j+" is matched "+(colMap[i][j]-1) +" time(s) in column "+(i+1)+". ";
+        if (repeats.indexOf(j)===-1) {
+        repeats.push(j);
+      }
+      }
+    }
+  }
+    document.querySelector('.messageTable').innerHTML = repeats.length+" number(s) have been matched in "+colrepeats.length+" columns(s). "+text;
+  }
+
+
+var diagDownMap = [];
+function createDiagonalMapDown() {
+  diagDownMap = [];
   var rowinc = 0;
   var colinc = 1;
   var m = {};
@@ -274,141 +244,299 @@ function createDiagonalMap() {
     length = allRowN[0].length;
   } else if (allRowN.length < allRowN[0].length) {
     length = allRowN.length;
+  } else {
+    length = allRowN.length;
   }
   //FOR CHECKING DIAGONALS TO THE LEFT.
-  while (rowinc < length) {
+  while (rowinc < allRowN.length) {
 
     m = {};
     for (var i = 0; i < length; i++) {
 
       loc = [];
       x = 1;
-      if (allRowN[i+rowinc]!==undefined) {
-      if (m[allRowN[i + rowinc][i]] === undefined) {
-        m[allRowN[i + rowinc][i]] = 1;
-        loc.push([rows[i + rowinc], cols[i]]);
-        for (var j = i + 1; j < length; j++) {
-          if (allRowN[j+rowinc]!==undefined) {
-          if (m[allRowN[j + rowinc][j]] === m[allRowN[i + rowinc][i]]) {
-            x++;
-            m[allRowN[i + rowinc][i]] = x;
-            loc.push([rows[j + rowinc], cols[j]]);
-          }
-        }
-        }
-      }
-      }
-      if (loc.length > 1) {
-        if (locMap.length > 0) {
-          for (var x = 0; x < locMap.length; x++) {
-            if (locMap[x][0] === allRowN[i + rowinc][i]) {
-              locMap[x].push(loc);
-              break;
-            } else {
-              locMap.push([allRowN[i + rowinc][i], loc]);
-              break;
+      if (allRowN[i + rowinc] !== undefined) {
+        if (m[allRowN[i + rowinc][i]] === undefined) {
+          m[allRowN[i + rowinc][i]] = 1;
+          loc.push([rows[i + rowinc], cols[i]]);
+          for (var j = i + 1; j < length; j++) {
+            if (allRowN[j + rowinc] !== undefined) {
+              if (m[allRowN[j + rowinc][j]] === m[allRowN[i + rowinc][i]]) {
+                x++;
+                m[allRowN[i + rowinc][i]] = x;
+                loc.push([rows[j + rowinc], cols[j]]);
+              }
             }
           }
-        } else {
-        locMap.push([allRowN[i + rowinc][i], loc]);
+        }
+        if (loc.length > 1) {
+          var numfound = false;
+          var found = [];
+          if (diagDownMap.length === 0) {
+            diagDownMap.push([allRowN[i + rowinc][i], loc]);
+          } else {
+            for (var x = 0; x < diagDownMap.length; x++) {
+              if (diagDownMap[x][0] === allRowN[i + rowinc][i]) {
+                diagDownMap[x].push(loc);
+                numfound = true;
+                found.push(1);
+                break;
+              } else {
+                found.push(0);
+              }
+            }
+            if (found.indexOf(1) === -1) {
+              diagDownMap.push([allRowN[i + rowinc][i], loc])
+            }
+          }
+        }
       }
-      }
-    } rowinc++;
+    }
+    rowinc++;
 
   }
-  while (colinc < length) {
+  // FOR DIAGONALS TO THE RIGHT
+  while (colinc < allRowN[0].length) {
 
     m = {};
     for (var i = 0; i < length; i++) {
 
       loc = [];
       x = 1;
-      if(allRowN[i][i+colinc]!==undefined) {
-      if (m[allRowN[i][i+colinc]] === undefined) {
-        m[allRowN[i][i+colinc]] = 1;
-        loc.push([rows[i], cols[i+colinc]]);
-        for (var j = i + 1; j < length; j++) {
-          if (allRowN[0][j+colinc]!==undefined) {
-          if (m[allRowN[j][j+colinc]] === m[allRowN[i][i+colinc]]) {
-            x++;
-            m[allRowN[i][i+colinc]] = x;
-            loc.push([rows[j], cols[j+colinc]]);
-          }
-        }
-      }
-        }
-      }
-      if (loc.length > 1) {
-        if (locMap.length > 0) {
-          for (var x = 0; x < locMap.length; x++) {
-            if (locMap[x][0] === allRowN[i][i+colinc]) {
-              locMap[x].push(loc);
-              break;
-            } else {
-              locMap.push([allRowN[i][i+colinc], loc]);
-              break;
+      if (allRowN[i][i + colinc] !== undefined) {
+        if (m[allRowN[i][i + colinc]] === undefined) {
+          m[allRowN[i][i + colinc]] = 1;
+          loc.push([rows[i], cols[i + colinc]]);
+          for (var j = i + 1; j < length; j++) {
+            if (allRowN[0][j + colinc] !== undefined) {
+              if (m[allRowN[j][j + colinc]] === m[allRowN[i][i + colinc]]) {
+                x++;
+                m[allRowN[i][i + colinc]] = x;
+                loc.push([rows[j], cols[j + colinc]]);
+              }
             }
           }
-        } else {
-        locMap.push([allRowN[i][i+colinc], loc]);
-      }
-      }
-    } colinc++;
+        }
+        if (loc.length > 1) {
+          var numfound = false;
+          var found = [];
+          if (diagDownMap.length === 0) {
+            diagDownMap.push([allRowN[i][i + colinc], loc]);
+          } else {
+            for (var x = 0; x < diagDownMap.length; x++) {
+              if (diagDownMap[x][0] === allRowN[i][i + colinc]) {
+                diagDownMap[x].push(loc);
+                numfound = true;
+                found.push(1);
+                break;
+              } else {
+                found.push(0);
+              }
+            }
+            if (found.indexOf(1) === -1) {
+              diagDownMap.push([allRowN[i][i + colinc], loc]);
+            }
+          }
+        }
 
+      }
+    }
+    colinc++;
   }
 }
 
-function hlDiagonalMatches() {
-  for (var i = 0; i<locMap.length;i++) {
+var diagUpMap = [];
+function createDiagonalMapUp() {
+  diagUpMap = [];
+  var rowdec = allRowN.length - 1;
 
-    for (var j=0; j<locMap[i].length;j++) {
+  var colinc = 1;
+  var m = {};
+  var loc = [];
+  var length;
+  if (allRowN.length > allRowN[0].length) {
+    length = allRowN[0].length;
+  } else if (allRowN.length < allRowN[0].length) {
+    length = allRowN.length;
+  } else {
+    length = allRowN.length;
+  }
+  //FOR CHECKING DIAGONALS TO THE LEFT.
+  rowdec = allRowN.length - 1;
+
+
+      for (var i = 0; i < length; i++) {
+          m = {};
+        for (k = 0; k < length; k++) {
+
+        loc = [];
+        x = 1;
+        if (allRowN[rowdec - i - k] !== undefined) {
+          if (m[allRowN[rowdec - i - k][k]] === undefined) {
+            m[allRowN[rowdec - i - k][k]] = 1;
+            loc.push([rows[rowdec - i - k], cols[k]]);
+              for (var j = k + 1; j < length; j++) {
+                if (allRowN[rowdec -i - j] !== undefined) {
+                  if (m[allRowN[rowdec - i - j][j]] === m[allRowN[rowdec - i - k][k]]) {
+                    x++;
+                    m[allRowN[rowdec - i - k][k]] = x;
+                    loc.push([rows[rowdec - i -j], cols[j]]);
+                  }
+                }
+              }
+            }
+          }
+
+        if (loc.length > 1) {
+          var numfound = false;
+          var found = [];
+          if (diagUpMap.length === 0) {
+            diagUpMap.push([allRowN[rowdec - i - k][k], loc]);
+          } else {
+            for (var y = 0; y < diagUpMap.length; y++) {
+              if (diagUpMap[y][0] === allRowN[rowdec - i - k][k]) {
+                diagUpMap[y].push(loc);
+                numfound = true;
+                found.push(1);
+                break;
+              } else {
+                found.push(0)
+              }
+            }
+            if (found.indexOf(1) === -1) {
+              diagUpMap.push([allRowN[rowdec - i - k][k], loc]);
+            }
+          }
+        }
+        }
+      }
+
+  // FOR DIAGONALS TO THE RIGHT.
+
+      for (var i = 0; i < length; i++) {
+        rowdec = allRowN.length - 1;
+          m = {};
+        for (k = 0; k < length; k++) {
+        loc = [];
+        x = 1;
+        if (allRowN[rowdec - k][k+i+1] !== undefined) {
+          if (m[allRowN[rowdec - k][k+i+1]] === undefined) {
+            m[allRowN[rowdec - k][k+i+1]] = 1;
+            loc.push([rows[rowdec - k], cols[k+i+1]]);
+              for (var j = k + 1; j < length; j++) {
+                if (allRowN[rowdec - j][i+j+1] !== undefined) {
+                  if (m[allRowN[rowdec - j][i+j+1]] === m[allRowN[rowdec - k][i+k+1]]) {
+                    x++;
+                    m[allRowN[rowdec - k][k+i+1]] = x;
+                    loc.push([rows[rowdec -k], cols[i+j]]);
+                  }
+                }
+              }
+            }
+          }
+
+        if (loc.length > 1) {
+          var numfound = false;
+          var found = [];
+          if (diagUpMap.length === 0) {
+            diagUpMap.push([allRowN[rowdec - i - k][k+i+1], loc]);
+          } else {
+            for (var y = 0; y < diagUpMap.length; y++) {
+              if (diagUpMap[y][0] === allRowN[rowdec - k][i+k+1]) {
+                diagUpMap[y].push(loc);
+                numfound = true;
+                found.push(1);
+                break;
+              } else {
+                found.push(0)
+              }
+            }
+            if (found.indexOf(1) === -1) {
+              diagUpMap.push([allRowN[rowdec - i - k][k+i+1], loc]);
+            }
+          }
+        }
+        }
+      }
+    }
+
+
+function hlDiagonalDownMatches() {
+  var text = "";
+  for (var i = 0; i < diagDownMap.length; i++) {
+
+    for (var j = 1; j < diagDownMap[i].length; j++) {
       var color = randomColour();
-      for (var k=0; k<locMap[i][j].length;k++) {
-        var element = document.querySelector(locMap[i][j][k][0]);
-        var cell = element.querySelector(locMap[i][j][k][1]);
+      for (var k = 0; k < diagDownMap[i][j].length; k++) {
+        var element = document.querySelector(diagDownMap[i][j][k][0]);
+        var cell = element.querySelector(diagDownMap[i][j][k][1]);
         cell.style.backgroundColor = color;
+        cell.style.color = 'white';
+      }
+    text = text+diagDownMap[i][0]+" is matched "+(diagDownMap[i][j].length - 1) +" time(s). ";
+  }
+}
+document.querySelector('.messageTable').innerHTML = diagDownMap.length+" number(s) have matches in one or more diagonals. "+text;
+}
+
+function hlDiagonalUpMatches() {
+  var text = "";
+  for (var i = 0; i < diagUpMap.length; i++) {
+
+    for (var j = 1; j < diagUpMap[i].length; j++) {
+      var color = randomColour();
+      for (var k = 0; k < diagUpMap[i][j].length; k++) {
+        var element = document.querySelector(diagUpMap[i][j][k][0]);
+        var cell = element.querySelector(diagUpMap[i][j][k][1]);
+        cell.style.backgroundColor = color;
+        cell.style.color = 'white';
+      }
+
+  }
+  text = text+diagUpMap[i][0]+" is matched in "+diagUpMap[i].length-1 +" diagonals. ";
+}
+document.querySelector('.messageTable').innerHTML = diagUpMap.length+" number(s) have matches in one or more diagonal(s). "+text;
+}
+
+function hlRowMatches() {
+  var text = "";
+  var rowrepeats = [];
+  var repeats = [];
+  for (var i = 0; i < rowMap.length; i++) {
+    for (var j in rowMap[i]) {
+      var colour = randomColour();
+      if (rowMap[i][j] > 1) {
+        for (var k = 0; k < allRowN[0].length; k++) {
+          var element = document.querySelector(rows[i]);
+          var cell = element.querySelector(cols[k]);
+          if (cell.innerHTML === j) {
+            cell.style.backgroundColor = colour;
+            cell.style.color = 'white';
+          }
+        }
+        rowrepeats.push(1);
+        text = text+j+" is matched "+(rowMap[i][j]-1) +" time(s) in row "+(i+1)+". ";
+        if (repeats.indexOf(j)===-1) {
+        repeats.push(j);
+      }
       }
     }
   }
-}
-//FOR CHECKING DIAGONALS TO THE RIGHT.
-//     m = {};
-//     for (var k=0;k<allRowN[0].length; k++)
-//     for (var l = 0; l < allRowN[0].length; l++) {
-//     loc = [];
-//     x = 1;
-//     if (m[allRowN[l+1][l]] === undefined) {
-//       m[allRowN[l+1][l]] = 1;
-//       loc.push([rows[l+1], cols[l]]);
-//       for (var m = l + 1; j < allRowN[0].length; j++) {
-//         if (m[allRowN[m+1][m]] === m[allRowN[l+1][l]]) {
-//           x++;
-//           m[allRowN[l+1][l]] = x;
-//           loc.push([rows[m+1], cols[m]]);
-//         }
-//       }
-//     }
-//     if (loc.length > 1) {
-//       locMap[allRowN[l+1][l]] = loc;
-//     }
-//   }
-// }
-// }
+    if (repeats.length>1) {
+      document.querySelector('.messageTable').innerHTML = repeats.length+" numbers are matched in "+rowrepeats.length+" row(s). "+text;
+    } else if (repeats.length===1) {
+      document.querySelector('.messageTable').innerHTML = repeats.length+" number is matched in "+rowrepeats.length+" row(s). "+text;
 
+    } else {
+      document.querySelector('.messageTable').innerHTML = "No matches found!";
+    }
+  }
 
-
-
-// if (allRowN[0].length > allRowN.length) {
-//
-// }
-// if (allRowN[0].length === allRowN.length) {}
 
 
 //FIND MATCH IN CELLS:
 function createCellMap() {
   var m = {};
-  var table = document.getElementsByTagName('table')[0];
-  var cell = table.getElementsByTagName('td');
   for (var i = 0; i < cellN.length; i++) {
     x = 1;
     if (m[cellN[i]] === undefined) {
@@ -424,27 +552,79 @@ function createCellMap() {
   cellMap = m;
 }
 
+function hlCellMatches() {
+  var table = document.getElementsByTagName('table')[0];
+  var cell = table.getElementsByTagName('td');
+  var repeats = [];
+  var text = "";
+  for (var j in cellMap) {
+    var colour = randomColour();
+    if (cellMap[j] > 1) {
+    for (var i = 0; i < cellN.length; i++) {
+        if (cell[i].innerHTML === j) {
+          cell[i].style.backgroundColor = colour;
+        }
+      }
+      text = text+j+" is matched "+(cellMap[j]-1) +" time(s). "
+      repeats.push(1);
+    }
+  }
+  if (repeats.length>1) {
+    document.querySelector('.messageTable').innerHTML = repeats.length+" numbers are matched! "+text;
+  } else if (repeats.length===1) {
+    document.querySelector('.messageTable').innerHTML = repeats.length+" number is matched! "+text;
+
+  } else {
+    document.querySelector('.messageTable').innerHTML = "No matches found!";
+  }
+}
+
+function hlRemove(colour) {
+
+  var table = document.getElementsByTagName('table')[0];
+  var cell = table.getElementsByTagName('td');
+  for (var i = 0; i < cell.length; i++) {
+    cell[i].style.backgroundColor = colour;
+    cell[i].style.color = 'black';
+  }
+}
+
+function displayMessage() {
+  document.getElementsByClassName('messageTable')[0].innerHTML = "";
+  var messageDiv = document.getElementsByClassName('messageTable')[0];
+  for (var i = 1; i<4;i++) {
+    var addP = document.createElement('p');
+    addP.id = 'm'+i;
+    messageDiv.appendChild(addP);
+  }
+  document.getElementById('m1').innerHTML = "Click any of the buttons above to check for matches!";
+  document.getElementById('m2').innerHTML = "Create your own custom table by entering the number of columns and rows you want.";
+  document.getElementById('m3').innerHTML = "You can even select your own range!";
+}
+
 var rowsInput = 3;
-var colsInput = 6;
+var colsInput = 3;
 var rangeInput = 3;
 
 window.addEventListener("DOMContentLoaded", function() {
+  displayMessage();
   createNumList(rangeInput);
   createTable(rowsInput, colsInput);
   allocateCells(rangeInput);
   createRowArrays();
   // hlRowSame();
-  createColMap(0);
-  console.log(colMap);
-  console.log(cellN);
+  createDiagonalMapDown();
+  createDiagonalMapUp();
+  createRowMap();
   createCellMap();
-  createDiagonalMap();
-  hlDiagonalMatches();
+  createColMap(0);
+  hlRemove('#E84644');
 });
 
 
 
 document.getElementById('b2').addEventListener("click", function() {
+
   if (document.getElementById('cols').value === "" && document.getElementById('rows').value === "") {
     alert("You have not entered any values!");
   } else if (document.getElementById('cols').value === "" || document.getElementById('rows').value === "") {
@@ -454,59 +634,80 @@ document.getElementById('b2').addEventListener("click", function() {
       alert("Please enter a value for rows!");
     }
   } else if (document.getElementById('cols').value !== "" && document.getElementById('cols').value !== "") {
+
     document.getElementsByTagName('table')[0].innerHTML = "";
-    document.getElementsByClassName('messageTable')[0].innerHTML = "";
+
+
     rowsInput = document.getElementById('rows').value;
     colsInput = document.getElementById('cols').value;
-    console.log(rowsInput, colsInput);
 
+  displayMessage();
     createNumList(rangeInput);
     createTable(rowsInput, colsInput);
     allocateCells(rangeInput);
     createRowArrays();
-    createDiagonalMap();
-    hlDiagonalMatches();
+    createDiagonalMapDown();
+    createDiagonalMapUp();
+    createRowMap();
+    createCellMap();
+    createColMap(0);
     // hlRowSame();
   }
-})
+});
 
 document.querySelector('#b1').addEventListener('click', function() {
   document.getElementsByTagName('table')[0].innerHTML = "";
-  document.getElementsByClassName('messageTable')[0].innerHTML = "";
+
+displayMessage();
   createNumList(rangeInput);
   createTable(rowsInput, colsInput);
   allocateCells(rangeInput);
   createRowArrays();
-  createDiagonalMap();
-  hlDiagonalMatches();
+  createDiagonalMapDown();
+  createDiagonalMapUp();
+  createRowMap();
+  createCellMap();
+  createColMap(0);
   // hlRowSame();
 });
 
 document.getElementById('b3').addEventListener("click", function() {
   document.getElementsByTagName('table')[0].innerHTML = "";
-  document.getElementsByClassName('messageTable')[0].innerHTML = "";
+  displayMessage();
   rangeInput = document.getElementById('range').value;
   createNumList(rangeInput);
   createTable(rowsInput, colsInput);
   allocateCells(rangeInput);
   createRowArrays();
-  createDiagonalMap();
-  hlDiagonalMatches();
+  createDiagonalMapDown();
+  createDiagonalMapUp();
+  createRowMap();
+  createCellMap();
+  createColMap(0);
   // hlRowSame();
-})
+});
 
-// console.log(allRowN);
-var match = [];
-for (var i = 0; i < allRowN.length; i++) {
-  for (var j = 0; j < allRowN[i].length; j++) {
-    for (var instance in rowMap[i]) {
-      if (rowMap[i][instance] > 1) {
-        match.push()
-      }
-    }
-  }
-}
-
-
-
-// console.log(allRowN[0])
+document.getElementById('rowmatch').addEventListener('click', function() {
+  hlRemove('#E84644');
+  hlRowMatches();
+});
+document.getElementById('colmatch').addEventListener('click', function() {
+  hlRemove('#E84644');
+  hlColMatches();
+});
+document.getElementById('diagonalDown').addEventListener('click', function() {
+  hlRemove('#E84644');
+  hlDiagonalDownMatches();
+});
+document.getElementById('diagonalUp').addEventListener('click', function() {
+  hlRemove('#E84644');
+  hlDiagonalUpMatches();
+});
+document.getElementById('anymatch').addEventListener('click', function() {
+  hlRemove('#E84644');
+  hlCellMatches();
+});
+document.getElementById('hlRemove').addEventListener('click', function() {
+displayMessage();
+  hlRemove('#E84644');
+});

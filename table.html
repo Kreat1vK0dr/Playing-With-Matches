@@ -8,8 +8,8 @@
 
 </head>
 
-<body>
-
+<body class = "clearfix">
+<div id="buttons">
 <div id="inputButtons">
     <div class="inputs">
         <input id="cols" type="number" placeholder="Enter the number of columns you want" required><br>Enter Columns</input>
@@ -27,15 +27,29 @@
 <button id="b1">Refresh</button>
 </div>
 
+<div id="hlButtons">
+<button class = "matches" id = "anymatch">Any Matches</button>
+<button class = "matches" id = "rowmatch">Row Matches</button>
+<button class = "matches" id = "colmatch">Column Matches</button>
+<button class = "matches" id = "diagonalUp">Diagonal Up Matches</button>
+<button class = "matches" id = "diagonalDown">Diagonal Down Matches</button>
+<button class = "matches" id = "hlRemove">Remove Highlights</button>
+</div>
+</div>
+
   <div id="bigdiv">
-
-<div id = "t">
-<table>
-
-</table>
+    <div class = "messageTable">
+    <!-- <div class = "m" id = "m1"><p></p><br></div>
+    <div class = "m" id = "m2"><p></p><br></div>
+    <div class = "m" id = "m3"><p></p></div> -->
 </div>
-<div class = "messageTable">message</div>
-</div>
+    <div id = "t">
+    <table>
+
+    </table>
+  </div>
+
+  </div>
 
 
 

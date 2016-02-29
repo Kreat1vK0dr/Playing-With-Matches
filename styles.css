@@ -1,3 +1,40 @@
+/*@import url(https://fonts.googleapis.com/css?family=Josefin+Sans);*/
+html {
+  background-image: url(http://maxoffsky.com/word/wp-content/uploads/2014/04/andreasbg.png);
+
+    background-repeat:repeat;
+    background-size: cover;
+}
+@font-face {
+    font-family: 'Impact';
+    src: url('impact.otf');
+}
+
+body {
+  /*background-color: #FA555A;*/
+  /*background-image: url(http://static.vecteezy.com/system/resources/previews/000/100/314/non_2x/vector-trendy-abstract-geometric-pattern-background.jpg);*/
+  /*background-image: url(http://media02.hongkiat.com/pattern-tutorials/abstract-geometric-background.jpg);*/
+
+  /* VERY VERY COOL background-image: url(https://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/8/88/88405/dark-geometric-pattern-preview-o.jpg?1395899875);*/
+
+
+  /* VERY COOL background-image: url(http://www.richaven.com/wp-content/uploads/2012/10/tesslbkg-dark2-300x291.jpg);*/
+
+  /*background-image: url(http://gdj.gdj.netdna-cdn.com/wp-content/uploads/2014/05/0022+background+pattern+designs.jpg);*/
+
+
+  /*background-image: url(http://thumb1.shutterstock.com/display_pic_with_logo/843841/227095708/stock-vector-vector-seamless-pattern-modern-stylish-texture-repeating-geometric-background-with-rhombus-and-227095708.jpg);*/
+
+
+
+}
+
+/*.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}*/
+
 .blocks {
     position: relative;
     top: 5em;
@@ -10,6 +47,7 @@
   position: relative;
   margin: 0 auto;
   text-align: center;
+
 }
 
 .n {
@@ -27,8 +65,9 @@
 }
 
 .hl {
-  background-color: #f55d6f;
-  color: black;
+  background-color: #BB0F15;
+  /*background-color: #EE616F;*/
+  /*color: #E9CDCE;*/
 }
 
 .message {
@@ -44,23 +83,112 @@
 .messageTable {
   position: relative;
   text-align: center;
-  color: black;
+  /*color: #F7F7A0;*/
+  color: white;
   margin: 0 auto;
-  width: 60%;
+  width: 75%;
   font-size: 1.5em;
-  bottom: -65%;
+  top: -10%;
+  font-weight: bold;
+  font-family: 'Baskerville Old Face', bodoni;
+  background-color: black;
+  padding: 0.5em;
+  opacity: 0.7;
+  margin-right: 10%;
 }
 
 table {
   position: relative;
-  width: 20em;
-  height: 20em;
+  /*width: 30em;*/
+  /*height: 20em;*/
   margin: 0 auto;
+  top: 0em;
+
+    /*background-color: #D84D52;
+    padding: 2em;
+opacity: 0.7;*/
+    font-family: 'Impact';
+    padding-bottom: 4em;
+}
+
+td {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  border: solid 2px black;
+
+
 }
 
 .r {
-  background-color: grey;
+  /*background-color: #BB0F15;*/
+  background-color: #D84D52;
   color: black;
   text-align: center;
   font-size: 3em;
+
+
+}
+
+#buttons {
+  display: inline-flex;
+  width: 95%;
+}
+
+#inputButtons {
+  font-family: sans-serif;
+  /*font-weight: bold;*/
+  /*width: 20%;*/
+  float: left;
+  color: white;
+}
+
+.matches {
+
+	/*-moz-box-shadow:inset 0px 1px 0px 0px #cf866c;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #cf866c;*/
+	box-shadow:inset 0px 1px 0px 0px #cf866c;
+	/*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
+	background:-moz-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-webkit-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-o-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-ms-linear-gradient(top, #d0451b 5%, #bc3315 100%);*/
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
+	background-color:#d0451b;
+	/*-moz-border-radius:3px;
+	-webkit-border-radius:3px;*/
+	border-radius:80%;
+	border:1px solid #942911;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+  font-weight: bold;
+	font-size:13px;
+	padding:20px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #854629;
+}
+
+.matches:hover {
+	/*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bc3315), color-stop(1, #d0451b));
+	background:-moz-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-webkit-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-o-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-ms-linear-gradient(top, #bc3315 5%, #d0451b 100%);*/
+	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc3315', endColorstr='#d0451b',GradientType=0);
+	background-color:#bc3315;
+}
+.matches:active {
+	position:relative;
+	top:1px;
+}
+
+#hlButtons {
+  position: fixed;
+  height: 5em;
+  margin-left: 5%;
+  /*display: inline-block;*/
 }
