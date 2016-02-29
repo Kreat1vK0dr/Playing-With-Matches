@@ -207,9 +207,10 @@ function hlColMatches() {
   for (var i = 0; i < colMap.length; i++) {
     for (var j in colMap[i]) {
       if (colMap[i][j] > 1) {
-        if (colrepeats.indexOf(i)===-1) {
-        colrepeats.push(i);
-      }
+        if (colrepeats.indexOf(i) === -1) {
+          colrepeats.push(i);
+        }
+
         var colour = randomColour();
         for (var k = 0; k < allRowN.length; k++) {
           var element = document.querySelector(rows[k]);
@@ -219,20 +220,19 @@ function hlColMatches() {
             cell.style.color = 'white';
           }
         }
-
-
-        text = text+j+" is matched "+(colMap[i][j]-1) +" time(s) in column "+(i+1)+". ";
-        if (repeats.indexOf(j)===-1) {
-        repeats.push(j);
-      }
+        text = text + j + " is matched " + (colMap[i][j] - 1) + " time(s) in column " + (i + 1) + ". ";
+        if (repeats.indexOf(j) === -1) {
+          repeats.push(j);
+        }
       }
     }
   }
-    document.querySelector('.messageTable').innerHTML = repeats.length+" number(s) have been matched in "+colrepeats.length+" columns(s). "+text;
-  }
+  document.querySelector('.messageTable').innerHTML = repeats.length + " number(s) have been matched in " + colrepeats.length + " column(s). " + text;
+}
 
 
 var diagDownMap = [];
+
 function createDiagonalMapDown() {
   diagDownMap = [];
   var rowinc = 0;
@@ -346,6 +346,7 @@ function createDiagonalMapDown() {
 }
 
 var diagUpMap = [];
+
 function createDiagonalMapUp() {
   diagUpMap = [];
   var rowdec = allRowN.length - 1;
@@ -364,101 +365,101 @@ function createDiagonalMapUp() {
   //FOR CHECKING DIAGONALS TO THE LEFT.
   rowdec = allRowN.length - 1;
 
+  for (var i = 0; i < length; i++) {
+    m = {};
+    for (k = 0; k < length; k++) {
 
-      for (var i = 0; i < length; i++) {
-          m = {};
-        for (k = 0; k < length; k++) {
-
-        loc = [];
-        x = 1;
-        if (allRowN[rowdec - i - k] !== undefined) {
-          if (m[allRowN[rowdec - i - k][k]] === undefined) {
-            m[allRowN[rowdec - i - k][k]] = 1;
-            loc.push([rows[rowdec - i - k], cols[k]]);
-              for (var j = k + 1; j < length; j++) {
-                if (allRowN[rowdec -i - j] !== undefined) {
-                  if (m[allRowN[rowdec - i - j][j]] === m[allRowN[rowdec - i - k][k]]) {
-                    x++;
-                    m[allRowN[rowdec - i - k][k]] = x;
-                    loc.push([rows[rowdec - i -j], cols[j]]);
-                  }
-                }
+      loc = [];
+      x = 1;
+      if (allRowN[rowdec - i - k] !== undefined) {
+        if (m[allRowN[rowdec - i - k][k]] === undefined) {
+          m[allRowN[rowdec - i - k][k]] = 1;
+          loc.push([rows[rowdec - i - k], cols[k]]);
+          for (var j = k + 1; j < length; j++) {
+            if (allRowN[rowdec - i - j] !== undefined) {
+              if (m[allRowN[rowdec - i - j][j]] === m[allRowN[rowdec - i - k][k]]) {
+                x++;
+                m[allRowN[rowdec - i - k][k]] = x;
+                loc.push([rows[rowdec - i - j], cols[j]]);
               }
             }
           }
-
-        if (loc.length > 1) {
-          var numfound = false;
-          var found = [];
-          if (diagUpMap.length === 0) {
-            diagUpMap.push([allRowN[rowdec - i - k][k], loc]);
-          } else {
-            for (var y = 0; y < diagUpMap.length; y++) {
-              if (diagUpMap[y][0] === allRowN[rowdec - i - k][k]) {
-                diagUpMap[y].push(loc);
-                numfound = true;
-                found.push(1);
-                break;
-              } else {
-                found.push(0)
-              }
-            }
-            if (found.indexOf(1) === -1) {
-              diagUpMap.push([allRowN[rowdec - i - k][k], loc]);
-            }
-          }
-        }
         }
       }
 
-  // FOR DIAGONALS TO THE RIGHT.
-
-      for (var i = 0; i < length; i++) {
-        rowdec = allRowN.length - 1;
-          m = {};
-        for (k = 0; k < length; k++) {
-        loc = [];
-        x = 1;
-        if (allRowN[rowdec - k][k+i+1] !== undefined) {
-          if (m[allRowN[rowdec - k][k+i+1]] === undefined) {
-            m[allRowN[rowdec - k][k+i+1]] = 1;
-            loc.push([rows[rowdec - k], cols[k+i+1]]);
-              for (var j = k + 1; j < length; j++) {
-                if (allRowN[rowdec - j][i+j+1] !== undefined) {
-                  if (m[allRowN[rowdec - j][i+j+1]] === m[allRowN[rowdec - k][i+k+1]]) {
-                    x++;
-                    m[allRowN[rowdec - k][k+i+1]] = x;
-                    loc.push([rows[rowdec -k], cols[i+j]]);
-                  }
-                }
-              }
+      if (loc.length > 1) {
+        var numfound = false;
+        var found = [];
+        if (diagUpMap.length === 0) {
+          diagUpMap.push([allRowN[rowdec - i - k][k], loc]);
+        } else {
+          for (var y = 0; y < diagUpMap.length; y++) {
+            if (diagUpMap[y][0] === allRowN[rowdec - i - k][k]) {
+              diagUpMap[y].push(loc);
+              numfound = true;
+              found.push(1);
+              break;
+            } else {
+              found.push(0)
             }
           }
-
-        if (loc.length > 1) {
-          var numfound = false;
-          var found = [];
-          if (diagUpMap.length === 0) {
-            diagUpMap.push([allRowN[rowdec - i - k][k+i+1], loc]);
-          } else {
-            for (var y = 0; y < diagUpMap.length; y++) {
-              if (diagUpMap[y][0] === allRowN[rowdec - k][i+k+1]) {
-                diagUpMap[y].push(loc);
-                numfound = true;
-                found.push(1);
-                break;
-              } else {
-                found.push(0)
-              }
-            }
-            if (found.indexOf(1) === -1) {
-              diagUpMap.push([allRowN[rowdec - i - k][k+i+1], loc]);
-            }
+          if (found.indexOf(1) === -1) {
+            diagUpMap.push([allRowN[rowdec - i - k][k], loc]);
           }
-        }
         }
       }
     }
+  }
+
+  // FOR DIAGONALS TO THE RIGHT.
+
+  for (var i = 0; i < length; i++) {
+    rowdec = allRowN.length - 1;
+    m = {};
+    for (k = 0; k < length; k++) {
+      loc = [];
+      x = 1;
+      if (allRowN[rowdec - k][k + i + 1] !== undefined) {
+        if (m[allRowN[rowdec - k][k + i + 1]] === undefined) {
+          m[allRowN[rowdec - k][k + i + 1]] = 1;
+          loc.push([rows[rowdec - k], cols[k + i + 1]]);
+          for (var j = k + 1; j < length; j++) {
+            if (allRowN[rowdec - j][i + j + 1] !== undefined) {
+              if (m[allRowN[rowdec - j][i + j + 1]] === m[allRowN[rowdec - k][i + k + 1]]) {
+                x++;
+                m[allRowN[rowdec - k][k + i + 1]] = x;
+                loc.push([rows[rowdec - k], cols[i + j]]);
+              }
+            }
+          }
+        }
+      }
+
+      if (loc.length > 1) {
+        var numfound = false;
+        var found = [];
+        if (diagUpMap.length === 0) {
+          diagUpMap.push([allRowN[rowdec - i - k][k + i + 1], loc]);
+        } else {
+          for (var y = 0; y < diagUpMap.length; y++) {
+            if (diagUpMap[y][0] === allRowN[rowdec - k][i + k + 1]) {
+              diagUpMap[y].push(loc);
+              numfound = true;
+              found.push(1);
+              break;
+            } else {
+              found.push(0)
+            }
+          }
+          if (found.indexOf(1) === -1) {
+            diagUpMap.push([allRowN[rowdec - i - k][k + i + 1], loc]);
+          }
+        }
+      }
+    }
+  }
+}
+
 
 
 function hlDiagonalDownMatches() {
@@ -473,10 +474,12 @@ function hlDiagonalDownMatches() {
         cell.style.backgroundColor = color;
         cell.style.color = 'white';
       }
-    text = text+diagDownMap[i][0]+" is matched "+(diagDownMap[i][j].length - 1) +" time(s). ";
+
+    }
+    text = text + diagDownMap[i][0] + " is matched in " + (diagDownMap[i].length - 1) + " diagonal(s). ";
   }
-}
-document.querySelector('.messageTable').innerHTML = diagDownMap.length+" number(s) have matches in one or more diagonals. "+text;
+  document.querySelector('.messageTable').innerHTML = diagDownMap.length + " number(s) have matches in one or more diagonals. " + text;
+
 }
 
 function hlDiagonalUpMatches() {
@@ -491,11 +494,10 @@ function hlDiagonalUpMatches() {
         cell.style.backgroundColor = color;
         cell.style.color = 'white';
       }
-
+    }
+    text = text + diagUpMap[i][0] + " is matched in " + (diagUpMap[i].length - 1) + " diagonal(s). ";
   }
-  text = text+diagUpMap[i][0]+" is matched in "+diagUpMap[i].length-1 +" diagonals. ";
-}
-document.querySelector('.messageTable').innerHTML = diagUpMap.length+" number(s) have matches in one or more diagonal(s). "+text;
+  document.querySelector('.messageTable').innerHTML = diagUpMap.length + " number(s) have matches in one or more diagonal(s). " + text;
 }
 
 function hlRowMatches() {
@@ -515,22 +517,23 @@ function hlRowMatches() {
           }
         }
         rowrepeats.push(1);
-        text = text+j+" is matched "+(rowMap[i][j]-1) +" time(s) in row "+(i+1)+". ";
-        if (repeats.indexOf(j)===-1) {
-        repeats.push(j);
-      }
+        text = text + j + " is matched " + (rowMap[i][j] - 1) + " time(s) in row " + (i + 1) + ". ";
+        if (repeats.indexOf(j) === -1) {
+          repeats.push(j);
+        }
       }
     }
   }
-    if (repeats.length>1) {
-      document.querySelector('.messageTable').innerHTML = repeats.length+" numbers are matched in "+rowrepeats.length+" row(s). "+text;
-    } else if (repeats.length===1) {
-      document.querySelector('.messageTable').innerHTML = repeats.length+" number is matched in "+rowrepeats.length+" row(s). "+text;
+  if (repeats.length > 1) {
+    document.querySelector('.messageTable').innerHTML = repeats.length + " numbers are matched in " + rowrepeats.length + " row(s). " + text;
+  } else if (repeats.length === 1) {
+    document.querySelector('.messageTable').innerHTML = repeats.length + " number is matched in " + rowrepeats.length + " row(s). " + text;
 
-    } else {
-      document.querySelector('.messageTable').innerHTML = "No matches found!";
-    }
+  } else {
+    document.querySelector('.messageTable').innerHTML = "No matches found!";
   }
+}
+
 
 
 
@@ -560,19 +563,19 @@ function hlCellMatches() {
   for (var j in cellMap) {
     var colour = randomColour();
     if (cellMap[j] > 1) {
-    for (var i = 0; i < cellN.length; i++) {
+      for (var i = 0; i < cellN.length; i++) {
         if (cell[i].innerHTML === j) {
           cell[i].style.backgroundColor = colour;
         }
       }
-      text = text+j+" is matched "+(cellMap[j]-1) +" time(s). "
+      text = text + j + " is matched " + (cellMap[j] - 1) + " time(s). "
       repeats.push(1);
     }
   }
-  if (repeats.length>1) {
-    document.querySelector('.messageTable').innerHTML = repeats.length+" numbers are matched! "+text;
-  } else if (repeats.length===1) {
-    document.querySelector('.messageTable').innerHTML = repeats.length+" number is matched! "+text;
+  if (repeats.length > 1) {
+    document.querySelector('.messageTable').innerHTML = repeats.length + " numbers are matched! " + text;
+  } else if (repeats.length === 1) {
+    document.querySelector('.messageTable').innerHTML = repeats.length + " number is matched! " + text;
 
   } else {
     document.querySelector('.messageTable').innerHTML = "No matches found!";
@@ -592,9 +595,10 @@ function hlRemove(colour) {
 function displayMessage() {
   document.getElementsByClassName('messageTable')[0].innerHTML = "";
   var messageDiv = document.getElementsByClassName('messageTable')[0];
-  for (var i = 1; i<4;i++) {
+  for (var i = 1; i < 4; i++) {
     var addP = document.createElement('p');
-    addP.id = 'm'+i;
+    addP.classList.add("mPara");
+    addP.id = 'm' + i;
     messageDiv.appendChild(addP);
   }
   document.getElementById('m1').innerHTML = "Click any of the buttons above to check for matches!";
@@ -641,7 +645,7 @@ document.getElementById('b2').addEventListener("click", function() {
     rowsInput = document.getElementById('rows').value;
     colsInput = document.getElementById('cols').value;
 
-  displayMessage();
+    displayMessage();
     createNumList(rangeInput);
     createTable(rowsInput, colsInput);
     allocateCells(rangeInput);
@@ -658,7 +662,7 @@ document.getElementById('b2').addEventListener("click", function() {
 document.querySelector('#b1').addEventListener('click', function() {
   document.getElementsByTagName('table')[0].innerHTML = "";
 
-displayMessage();
+  displayMessage();
   createNumList(rangeInput);
   createTable(rowsInput, colsInput);
   allocateCells(rangeInput);
@@ -708,6 +712,8 @@ document.getElementById('anymatch').addEventListener('click', function() {
   hlCellMatches();
 });
 document.getElementById('hlRemove').addEventListener('click', function() {
-displayMessage();
+
+  displayMessage();
+
   hlRemove('#E84644');
 });

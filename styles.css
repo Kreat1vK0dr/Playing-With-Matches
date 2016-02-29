@@ -1,13 +1,14 @@
 /*@import url(https://fonts.googleapis.com/css?family=Josefin+Sans);*/
+
+
 html {
   background-image: url(http://maxoffsky.com/word/wp-content/uploads/2014/04/andreasbg.png);
-
-    background-repeat:repeat;
-    background-size: cover;
+  background-repeat: repeat;
+  background-size: cover;
 }
 @font-face {
-    font-family: 'Impact';
-    src: url('impact.otf');
+  font-family: 'Impact';
+  src: url('impact.otf');
 }
 
 body {
@@ -16,16 +17,9 @@ body {
   /*background-image: url(http://media02.hongkiat.com/pattern-tutorials/abstract-geometric-background.jpg);*/
 
   /* VERY VERY COOL background-image: url(https://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/8/88/88405/dark-geometric-pattern-preview-o.jpg?1395899875);*/
-
-
   /* VERY COOL background-image: url(http://www.richaven.com/wp-content/uploads/2012/10/tesslbkg-dark2-300x291.jpg);*/
-
   /*background-image: url(http://gdj.gdj.netdna-cdn.com/wp-content/uploads/2014/05/0022+background+pattern+designs.jpg);*/
-
-
   /*background-image: url(http://thumb1.shutterstock.com/display_pic_with_logo/843841/227095708/stock-vector-vector-seamless-pattern-modern-stylish-texture-repeating-geometric-background-with-rhombus-and-227095708.jpg);*/
-
-
 
 }
 
@@ -37,8 +31,8 @@ body {
 
 .blocks {
     position: relative;
-    top: 5em;
 
+  top: 5em;
 }
 
 #bigdiv {
@@ -47,7 +41,7 @@ body {
   position: relative;
   margin: 0 auto;
   text-align: center;
-
+  /*top: -5%;*/
 }
 
 .n {
@@ -63,13 +57,15 @@ body {
   border-radius: 3em;
   font-size: 2em;
 }
-
 .hl {
   background-color: #BB0F15;
   /*background-color: #EE616F;*/
   /*color: #E9CDCE;*/
 }
 
+.mPara {
+  margin: 10px;
+}
 .message {
   position: relative;
   text-align: center;
@@ -88,13 +84,15 @@ body {
   margin: 0 auto;
   width: 75%;
   font-size: 1.5em;
-  top: -10%;
+  top: -32%;
   font-weight: bold;
   font-family: 'Baskerville Old Face', bodoni;
   background-color: black;
   padding: 0.5em;
   opacity: 0.7;
-  margin-right: 10%;
+  border-radius: 0.5em;
+
+  margin-right: 8%;
 }
 
 table {
@@ -102,13 +100,17 @@ table {
   /*width: 30em;*/
   /*height: 20em;*/
   margin: 0 auto;
-  top: 0em;
-
-    /*background-color: #D84D52;
+  /*background-color: #D84D52;
     padding: 2em;
 opacity: 0.7;*/
-    font-family: 'Impact';
-    padding-bottom: 4em;
+  font-family: 'Impact';
+  padding-bottom: 4em;
+  top: -10em;
+}
+
+#t {
+
+
 }
 
 td {
@@ -116,8 +118,6 @@ td {
   height: 80px;
   border-radius: 100%;
   border: solid 2px black;
-
-
 }
 
 .r {
@@ -126,13 +126,55 @@ td {
   color: black;
   text-align: center;
   font-size: 3em;
-
-
 }
 
 #buttons {
   display: inline-flex;
   width: 95%;
+}
+
+.b1 {
+  width: 173px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  /*background-color: #972910;*/
+  color: white;
+  border: 2px #972910 solid;
+  background: linear-gradient(to bottom, #322518 5%, #9D3120 100%);
+  cursor: pointer;
+}
+
+.b1:hover {
+  background: linear-gradient(to bottom, #9D3120 5%,  #322518 100%);
+}
+
+#b2 {
+  margin-bottom: 1em;
+}
+.inputs {
+  /*background-color: grey;
+  opacity: 0.8;*/
+  width: 10em;
+  margin: 0;
+}
+
+.submit {
+  background-color: black;
+  color: white;
+  width: 173px;
+  border: none;
+  padding: 5px;
+  margin-bottom: 2em;
+}
+
+.submit:hover {
+  background-color: white;
+  color: black;
+  font-weight: bolder;
+}
+
+.rowcols {
+  margin-bottom: 0.4em;
 }
 
 #inputButtons {
@@ -144,51 +186,49 @@ td {
 }
 
 .matches {
-
-	/*-moz-box-shadow:inset 0px 1px 0px 0px #cf866c;
+  /*-moz-box-shadow:inset 0px 1px 0px 0px #cf866c;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #cf866c;*/
-	box-shadow:inset 0px 1px 0px 0px #cf866c;
-	/*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
+  box-shadow: inset 0px 1px 0px 0px #cf866c;
+  /*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
 	background:-moz-linear-gradient(top, #d0451b 5%, #bc3315 100%);
 	background:-webkit-linear-gradient(top, #d0451b 5%, #bc3315 100%);
 	background:-o-linear-gradient(top, #d0451b 5%, #bc3315 100%);
 	background:-ms-linear-gradient(top, #d0451b 5%, #bc3315 100%);*/
-	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
-	background-color:#d0451b;
-	/*-moz-border-radius:3px;
+  background: linear-gradient(to bottom, #9D3120 5%, #762518 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#9D3120', endColorstr='#762518', GradientType=0);
+  background-color: #9D3120;
+  /*-moz-border-radius:3px;
 	-webkit-border-radius:3px;*/
-	border-radius:80%;
-	border:1px solid #942911;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
+  border-radius: 80%;
+  border: 1px solid #942911;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
   font-weight: bold;
-	font-size:13px;
-	padding:20px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #854629;
+  font-size: 13px;
+  padding: 20px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #854629;
 }
-
 .matches:hover {
-	/*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bc3315), color-stop(1, #d0451b));
+  /*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bc3315), color-stop(1, #d0451b));
 	background:-moz-linear-gradient(top, #bc3315 5%, #d0451b 100%);
 	background:-webkit-linear-gradient(top, #bc3315 5%, #d0451b 100%);
 	background:-o-linear-gradient(top, #bc3315 5%, #d0451b 100%);
 	background:-ms-linear-gradient(top, #bc3315 5%, #d0451b 100%);*/
-	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc3315', endColorstr='#d0451b',GradientType=0);
-	background-color:#bc3315;
+  background: linear-gradient(to bottom, #762518 5%, #9D3120 100%);
+  /*filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#762518', endColorstr='#9D3120', GradientType=0);*/
+  background-color: ##762518;
 }
 .matches:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 #hlButtons {
   position: fixed;
   height: 5em;
-  margin-left: 5%;
+  /*margin-left: 5%;*/
   /*display: inline-block;*/
 }

@@ -1,31 +1,3 @@
-var table = document.getElementById("mytab1");
-for (var i = 0, row; row = table.rows[i]; i++) {
-   //iterate through rows
-   //rows would be accessed using the "row" variable assigned in the for loop
-   for (var j = 0, col; col = row.cells[j]; j++) {
-     //iterate through columns
-     //columns would be accessed using the "col" variable assigned in the for loop
-   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var randomInc = function (min,max) {
     return Math.floor(Math.random()*(max - min +1) + min);
   };
@@ -34,7 +6,7 @@ var numpush = [];
 var numlist = [];
 var blocks = [];
 
-//how many divs/classes?
+// how many divs/classes?
 var createDivList = function(maxblocks) {
   for (i = 0; i<maxblocks;i++) {
     var addDiv = document.createElement('div');
@@ -45,6 +17,8 @@ var createDivList = function(maxblocks) {
     pDiv[0].appendChild(addDiv);
   }
 };
+
+
 
 var color = [];
 var letterdigits = ['a','b','c','d','e','f'];
@@ -67,18 +41,20 @@ var randomHex = function() {
 
 // console.log(randomHex());
 
-var randomColour = '#'+ randomHex()+''+randomHex()+''+randomHex()+''+randomHex()+''+randomHex()+''+randomHex();
+var randomColour = function(){
+    return '#'+ randomHex()+''+randomHex()+''+randomHex()+''+randomHex()+''+randomHex()+''+randomHex();
+};
 
 var createNumList = function(maxrange) {
   for (i = 1; i<maxrange+1;i++) {
     numlist.push(i);
   }
-  // for (var i in blocks) {
-  //   var number = randomInc(1,maxrange);
-  //   var element = document.querySelector(blocks[i]);
-  //   document.querySelector(blocks[i]).innerHTML = number;
-  //   numpush.push(number);
-  // }
+  for (var i in blocks) {
+    var number = randomInc(1,maxrange);
+    var element = document.querySelector(blocks[i]);
+    document.querySelector(blocks[i]).innerHTML = number;
+    numpush.push(number);
+  }
 };
 
 function createBlocks(maxrange, divcount) {
@@ -87,11 +63,11 @@ function createBlocks(maxrange, divcount) {
   allocate(divcount);
 }
 
-// console.log('Divs : ['+blocks+']');
+console.log('Divs : ['+blocks+']');
 
-// var blocks = ['.n1', '.n2', '.n3'];
+var blocks = ['.n1', '.n2', '.n3'];
 
-//randomly allocate numbers
+// randomly allocate numbers WITHOUT CONSIDERING ROWS AND COLUMNS
 function allocate(max) {
   for (var i in blocks) {
     var number = randomInc(1,max);
@@ -102,6 +78,7 @@ function allocate(max) {
 }
 
 
+
 // console.log('Numlist : ['+numlist+']');
 // console.log('Numpush : [' +numpush+']');
 
@@ -110,6 +87,7 @@ function allocate(max) {
   var idx =[];
   var check = [];
 
+// FUNCTION TO HIGHLIGHT SAME WITHOUT CONSIDERING ROWS AND COLUMNS
 function hlSame() {
     for (i=0;i<numlist.length;i++) {
       check = [];
@@ -124,10 +102,12 @@ function hlSame() {
                 idx = numpush.indexOf(numlist[i], idx+1);
            } console.log(check);
             if (check.length>1) {
+              var color = randomColour();
               binarycheck.push(check.length);
            for (j=0; j<check.length;j++) {
                var element = document.querySelector(blocks[check[j]]);
                element.classList.add('hl');
+               element.style.backgroundColor = color;
             //  console.log(blocks[check[j]]);
 //                console.log(element);
            }
@@ -165,10 +145,13 @@ function hlSame() {
 // createBlocks(10,6); PAGE WORKED WORKED WHEN THIS FUNCTION WAS EITHER OUTSIDE OR WITHIN THE FUNCTION BELOW.
 
 window.addEventListener("DOMContentLoaded", function(){
-  // allocate();
+
+// NO TABLE
+
 createBlocks(10,48);
     hlSame();
     console.log(binarycheck);
+
 });
 
 
