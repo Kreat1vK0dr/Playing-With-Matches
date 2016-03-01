@@ -566,6 +566,7 @@ function hlCellMatches() {
       for (var i = 0; i < cellN.length; i++) {
         if (cell[i].innerHTML === j) {
           cell[i].style.backgroundColor = colour;
+          cell[i].style.color = 'white';
         }
       }
       text = text + j + " is matched " + (cellMap[j] - 1) + " time(s). "
@@ -582,8 +583,21 @@ function hlCellMatches() {
   }
 }
 
-function hlRemove(colour) {
+function makeCircles() {
+  var cells = document.getElementsByTagName('table')[0].getElementsByTagName('td');
+  for (var i = 0; i<cells.length;i++) {
+    cells[i].style.borderRadius = '100%';
+  }
+}
 
+function makeSquares() {
+  var cells = document.getElementsByTagName('table')[0].getElementsByTagName('td');
+  for (var i = 0; i<cells.length;i++) {
+    cells[i].style.borderRadius = '0%';
+  }
+}
+
+function hlRemove(colour) {
   var table = document.getElementsByTagName('table')[0];
   var cell = table.getElementsByTagName('td');
   for (var i = 0; i < cell.length; i++) {
@@ -606,9 +620,9 @@ function displayMessage() {
   document.getElementById('m3').innerHTML = "You can even select your own range!";
 }
 
-var rowsInput = 5;
-var colsInput = 5;
-var rangeInput = 10;
+var rowsInput = 3;
+var colsInput = 3;
+var rangeInput = 9;
 
 window.addEventListener("DOMContentLoaded", function() {
   displayMessage();
@@ -712,8 +726,35 @@ document.getElementById('anymatch').addEventListener('click', function() {
   hlCellMatches();
 });
 document.getElementById('hlRemove').addEventListener('click', function() {
-
   displayMessage();
-
   hlRemove('#E84644');
 });
+
+
+document.getElementById('circle').addEventListener('click', function() {
+makeCircles();
+});
+document.getElementById('squares').addEventListener('click', function() {
+  makeSquares();
+});
+
+
+document.getElementById('slide').addEventListener('mousemove', function() {
+  var change = document.getElementById('slide').value;
+  var cells = document.getElementsByTagName('table')[0].getElementsByTagName('td');
+  for (var i = 0; i<cells.length;i++) {
+    cells[i].style.borderRadius = change+'%';
+    console.log(cells[i].style.borderRadius);
+}
+  console.log(change);
+}, false);
+
+document.getElementById('slide').addEventListener('change', function() {
+  var change = document.getElementById('slide').value;
+  var cells = document.getElementsByTagName('table')[0].getElementsByTagName('td');
+  for (var i = 0; i<cells.length;i++) {
+    cells[i].style.borderRadius = change+'%';
+    console.log(cells[i].style.borderRadius);
+}
+  console.log(change);
+}, false);

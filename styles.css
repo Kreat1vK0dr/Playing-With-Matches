@@ -76,6 +76,10 @@ body {
   top: -6em;
 }
 
+#slider {
+  width: 173px;
+}
+
 .messageTable {
   position: relative;
   text-align: center;
@@ -84,7 +88,7 @@ body {
   margin: 0 auto;
   width: 75%;
   font-size: 1.5em;
-  top: -32%;
+  top: -30%;
   font-weight: bold;
   font-family: 'Baskerville Old Face', bodoni;
   background-color: black;
@@ -108,9 +112,11 @@ opacity: 0.7;*/
   top: -8em;
 }
 
-#t {
-
-
+#circle {
+  width: 83px;
+}
+#squares {
+  width: 83px;
 }
 
 td {
@@ -119,6 +125,26 @@ td {
   border-radius: 100%;
   border: solid 2px black;
 }
+
+.borderR {
+  display: inline-block;
+  margin-top: 1em;
+
+}
+
+.borderRadius {
+  width: 180px;
+  /*position: relative;*/
+  /*display:inline-block;*/
+}
+
+/*#circle {
+
+}
+
+#squares {
+  top: 10%;
+}*/
 
 .r {
   /*background-color: #BB0F15;*/
@@ -140,12 +166,12 @@ td {
   /*background-color: #972910;*/
   color: white;
   border: 2px #972910 solid;
-  background: linear-gradient(to bottom, #322518 5%, #9D3120 100%);
+  background: linear-gradient(to bottom, #F28262 5%, #9D3120 100%);
   cursor: pointer;
 }
 
 .b1:hover {
-  background: linear-gradient(to bottom, #9D3120 5%,  #322518 100%);
+  background: linear-gradient(to bottom, #9D3120 5%,  #F28262 100%);
 }
 
 #b2 {
@@ -221,10 +247,10 @@ td {
   /*filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#762518', endColorstr='#9D3120', GradientType=0);*/
   background-color: ##762518;
 }
-.matches:active {
+/*.matches:active {
   position: relative;
   top: 1px;
-}
+}*/
 
 #hlButtons {
   position: fixed;
